@@ -1,0 +1,41 @@
+lab 2 - daniel dubichev - v00877776
+
+in this lab we are learning about socket UDP style programming in python
+    - send and receive datagram packets using UDP sockets 
+    - how to set a proper socket timeout 
+
+Ping application: useful for calculating packet loss rate, computing statistics
+
+Study pingserver.py, implement corresponding client, named pingclient.py 
+
+Most ping servers are implemented using standard Internet Control Message Protocol. We will be using a UDP datagram.
+
+Ping Protocol: allows a client machine to send a packet of data  to a remote machine, and have the remote machine return back to the client unchanged
+Also known as echoing. Among other uses, the ping protocol allows hosts to determine round trip times to other machines.
+
+Server Code: DON'T MODIFY
+    - 30% of packets simulated to be lost.
+    - sits in an infinite loop listening for incoming UDP packets.
+    - When a packet comes in and if a randomized integer is greater than or equal to 4, the server CAPITALIZES the encapsulated data and sends it back to the client
+
+PACKET LOSS 
+    - Udp provides applications with an unreliable transport service
+    - Messages could be lost due to router queue overflows, faulty hardware, other issues
+    - Since packet loss is uncommon the server creates a randomized integer varaible to determine if a packet is lost or not
+
+CLIENT CODE 
+10 pings to server, udp is unreilable so some packets will be lost in the network.
+for this reason, client cannot wait indefinetly.  wait up to one second for reply; otherwise assume lost. set timeout value on datagram socket.
+specifically, client code should have:
+1)send the ping message using UDP (no need to first extablish connection as UDP is connectionless)
+2)ping the resoibse nessage from server, if any 
+3)calculate and print the round trip time (RTT), in seconds, of each packet if the server responds.
+4)otherwise "request timed out"
+
+During development, run "pingserver.py" on your machine and test yout client by sending packets to localhost (or 127.0.0.1).
+After you have debugged, you should see how your application communicates accross the network with the ping server and ping client inside VM (using diff ip's and port #'s)
+
+MESSAGE FORMAT
+client message is one simple line,
+consisting of ASCII characters in the following format: PING Sequence_number Time 
+where Sequence_number starts at 1 and progresses to 10 for each successive ping message sent by the client, time is when client sends message

@@ -18,7 +18,7 @@ ipaddy = str(sys.argv[1])
 portnumber = int(sys.argv[2])
 
 #informative print
-print "Exchanging data with IP ADDRESS: "+ ipaddy+ ", and PORT NUMBER: " + str(portnumber)
+print "Exchanging data with server that has IP ADDRESS: "+ ipaddy+ ", and PORT NUMBER: " + str(portnumber)
 
 #loop
 firsttennums = range(1,11)
@@ -59,7 +59,8 @@ print
 
 for roundtimes in range(0,10):
     currenttime = str(times[roundtimes])
-    print("RTT for PING " + str(roundtimes) + " " + currenttime)
+    roundtimesplusone = roundtimes + 1
+    print("RTT for PING " + str(roundtimesplusone) + " " + currenttime)
 
 print
 

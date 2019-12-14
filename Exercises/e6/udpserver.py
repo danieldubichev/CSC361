@@ -1,22 +1,19 @@
-from socket import *
+import socket
 import sys
 
-# Create a TCP/IP socket
-sock = socket(AF_INET, SOCK_DGRAM)
-
+# Create a UDP socket
+serversocket = socket(AF_INET, SOCK_DGRAM)
 # Bind the socket to the port
-server_address = ('localhost', 10000)
-print >>sys.stderr, 'starting up on %s port %s' % server_address
-sock.bind(server_address)
+serversocket.bind(('', 8888))
+print ("starting up on localhost port 8888")
 
 while True:
-    print >>sys.stderr, '\nwaiting to receive message'
-    data, address = sock.recvfrom(4096)
+    print ('waiting to receive message')
+    message, address = serversocket.recvfrom(4096)
     
-    print >>sys.stderr, 'received %s bytes from %s' % (len(data), address)
-    print >>sys.stderr, data
+    print (" received " + len(message) + " bytes from" + address)
+    print (" message is : " + message)
     
-    if data:
-        sent = sock.sendto(data, address)
-        print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
-
+    if message:
+        sent = serversocket.sendto(message, address)
+        print (" sent " + sent + " bytes back to " + address)
